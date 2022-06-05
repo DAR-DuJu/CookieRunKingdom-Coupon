@@ -12,7 +12,7 @@ class CookieRunKingdom:
 
     @staticmethod
     def __user_data():
-        user_data = ['GUEST-YKPRX54058', 'GUEST-WVHPD57513']
+        user_data = ['GUEST-XXXXXXXXXX', 'GUEST-XXXXXXXXXX']
         return user_data
 
     @staticmethod
