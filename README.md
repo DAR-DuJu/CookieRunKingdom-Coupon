@@ -5,7 +5,7 @@
 </div>
 
 쿠키런 킹덤 쿠폰 손쉬운 입력 Tool
-- https://happylie.tistory.com/
+- https://happylie.tistory.com/136
 
 ## 쿠키런 킹덤 쿠폰 입력 Tool
 ### 설치 방법
