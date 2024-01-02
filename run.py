@@ -17,23 +17,25 @@ class CookieRunKingdom:
 
     @staticmethod
     def __get_result(ret):
-        if ret == 20000:
+        if ret == "RESPONSE_CODE_SUCCESS":
             return "상품이 정상적으로 지급되었습니다."
-        elif ret == 40006:
+        elif ret == "RESPONSE_CODE_ACCOUNT_NOT_FOUND":
             return "DevPlay 계정을 다시 한번 확인해주세요."
-        elif ret == 42501:
-            return "사용 기간이 만료된 쿠폰입니다."
-        elif ret == 42502:
+        elif ret == "RESPONSE_CODE_COUPON_CODE_NOT_FOUND":
             return "쿠폰번호를 다시 한번 확인해주세요."
-        elif ret == 42201 or ret == 42503:
-            return "해당 계정으로 이미 같은 종류의 쿠폰을 등록하셨습니다."
-        elif ret == 42203 or ret == 42504:
+        elif ret == "RESPONSE_CODE_NOT_TARGET_COUNTRY":
+            return "유효하지 않은 쿠폰 코드입니다."
+        elif ret == "RESPONSE_CODE_NOT_EVENT_TIME":
+            return "쿠폰 사용기간이 아닙니다. 유효기간을 다시 한번 확인해 주세요."
+        elif ret == "RESPONSE_CODE_COUPON_CODE_NOT_FOUND":
             return "이미 사용된 쿠폰입니다."
+        elif ret == "RESPONSE_CODE_COUPON_USAGE_ALREADY_MAX":
+            return "사용할 수 있는 쿠폰 수를 초과하였습니다."
         else:
             return "서버에서 알 수 없는 응답이 발생하였습니다. 잠시후 다시 시도해주세요."
 
     def __post_coupon(self, post_data):
-        url = 'https://account.devplay.com/v2/coupon/ck'
+        url = 'https://coupon.devplay.com/v1/coupon/ck'
         headers = {'Content-Type': 'application/json', 'User-Agent': self.ua}
         try:
             r = requests.post(url=url, headers=headers, json=post_data)
@@ -41,7 +43,8 @@ class CookieRunKingdom:
                 return self.__get_result(1)
             else:
                 obj = json.loads(r.text)
-                return self.__get_result(obj.get('code'))
+                print(obj)
+                return self.__get_result(obj.get('responseCode'))
         except Exception as err:
             print("post_coupon:: {err}".format(err=err))
 
@@ -49,6 +52,7 @@ class CookieRunKingdom:
         for user in self.__user_data():
             post_data = {
                 "email": user,
+                "game_codeL": "ck",
                 "coupon_code": coupon_data
             }
             print("{user} :: {result}".format(user=user, result=self.__post_coupon(post_data)))
@@ -59,7 +63,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(prog='Cookie Run Kingdom Coupon', description='쿠키런 킹덤 쿠폰 등록')
     try:
         parser.add_argument('-c', '--coupon', dest='coupon_code', type=str, help='쿠키런 킹덤 쿠폰 번호')
-        parser.add_argument('-v', '--version', action='version', version='%(prog)s 1.0')
+        parser.add_argument('-v', '--version', action='version', version='%(prog)s 2.0')
         args = parser.parse_args()
         crk = CookieRunKingdom()
         if args:
