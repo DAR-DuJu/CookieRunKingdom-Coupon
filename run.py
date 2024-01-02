@@ -27,7 +27,7 @@ class CookieRunKingdom:
             return "유효하지 않은 쿠폰 코드입니다."
         elif ret == "RESPONSE_CODE_NOT_EVENT_TIME":
             return "쿠폰 사용기간이 아닙니다. 유효기간을 다시 한번 확인해 주세요."
-        elif ret == "RESPONSE_CODE_COUPON_CODE_NOT_FOUND":
+        elif ret == "RESPONSE_CODE_COUPON_CODE_ALREADY_USED":
             return "이미 사용된 쿠폰입니다."
         elif ret == "RESPONSE_CODE_COUPON_USAGE_ALREADY_MAX":
             return "사용할 수 있는 쿠폰 수를 초과하였습니다."
@@ -43,7 +43,6 @@ class CookieRunKingdom:
                 return self.__get_result(1)
             else:
                 obj = json.loads(r.text)
-                print(obj)
                 return self.__get_result(obj.get('responseCode'))
         except Exception as err:
             print("post_coupon:: {err}".format(err=err))
