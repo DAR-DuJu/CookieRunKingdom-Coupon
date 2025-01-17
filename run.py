@@ -6,13 +6,13 @@ import requests
 import argparse
 
 
-class CookieRunKingdom:
+class Whiteout Survival:
     def __init__(self):
         self.ua = "Mozilla/5.0(Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.5005.63 Safari/537.36"
 
     @staticmethod
     def __user_data():
-        user_data = ['GUEST-XXXXXXXXXX', 'GUEST-XXXXXXXXXX']
+        user_data = ['GUEST-XXXXXXXXX', 'GUEST-XXXXXXXXX']
         return user_data
 
     @staticmethod
@@ -35,7 +35,7 @@ class CookieRunKingdom:
             return "서버에서 알 수 없는 응답이 발생하였습니다. 잠시후 다시 시도해주세요."
 
     def __post_coupon(self, post_data):
-        url = 'https://coupon.devplay.com/v1/coupon/ck'
+        url = 'https://wos-giftcode.centurygame.com/'
         headers = {'Content-Type': 'application/json', 'User-Agent': self.ua}
         try:
             r = requests.post(url=url, headers=headers, json=post_data)
@@ -59,12 +59,12 @@ class CookieRunKingdom:
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(prog='Cookie Run Kingdom Coupon', description='쿠키런 킹덤 쿠폰 등록')
+    parser = argparse.ArgumentParser(prog='WhiteoutSurvival Coupon', description='WOS 쿠폰 등록')
     try:
-        parser.add_argument('-c', '--coupon', dest='coupon_code', type=str, help='쿠키런 킹덤 쿠폰 번호')
+        parser.add_argument('-c', '--coupon', dest='coupon_code', type=str, help='WOS 쿠폰 번호')
         parser.add_argument('-v', '--version', action='version', version='%(prog)s 2.0')
         args = parser.parse_args()
-        crk = CookieRunKingdom()
+        crk = WhiteoutSurvival()
         if args:
             crk.registration_coupon(args.coupon_code)
             sys.exit(0)
